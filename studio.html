@@ -30,7 +30,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"GhostInk Studio","url":"https://YOUR-DOMAIN.com/studio","applicationCategory":"SecurityApplication","operatingSystem":"Any (modern web browser)","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free browser-based steganography tools: hide text in text, text in an image, or an image in an image, with optional AES-256-GCM encryption.","isPartOf":{"@type":"WebSite","name":"GhostInk","url":"https://YOUR-DOMAIN.com/"},"author":{"@type":"Organization","name":"AymanStack"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;600;700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap">
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/site.css">
 </head>
@@ -46,7 +46,7 @@
 <noscript><p class="legal-strip"><strong>JavaScript is required.</strong> GhostInk runs entirely inside your browser, so the hiding and revealing tools need JavaScript enabled.</p></noscript>
   <section class="hero">
     <div class="eyebrow"><span class="eyebrow-line"></span><span>Hiding lab</span><span class="mono">3 TOOLS / LOCAL</span></div>
-    <h1>Hide anything.<br><span>Inside anything.</span></h1>
+    <h1 data-decode>Hide anything.<br><span>Inside anything.</span></h1>
     <p>Text in text, text in an image, or an image in an image. With optional encryption and no file ever uploaded to the internet.</p>
     <p class="legal-strip"><strong>Use responsibly.</strong> These tools are provided “as is”. We are not responsible for loss, damage or consequences caused by incorrect or improper use. By using GhostInk you agree to the <a href="#terms">Terms of Use &amp; Disclaimer</a>.</p>
   </section>
@@ -229,6 +229,7 @@
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="js/core.js"></script>
+<script src="js/site.js"></script>
 <script src="js/text-text.js"></script>
 <script src="js/text-image.js"></script>
 <script src="js/worker-source.js"></script>
