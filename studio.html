@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' blob: data:; connect-src 'none'; worker-src 'self' blob:; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none'; manifest-src 'none'; media-src 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#100b24">
+<meta name="description" content="Free online steganography studio: hide secret text inside text, text inside an image, or one image inside another, with optional AES-256 encryption. Runs 100% in your browser.">
+<title>GhostInk Studio — Hide Text &amp; Images Inside Images (Free, Private)</title>
+<link rel="canonical" href="https://YOUR-DOMAIN.com/studio">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="AymanStack">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GhostInk">
+<meta property="og:title" content="GhostInk Studio — Hide Text &amp; Images Inside Images">
+<meta property="og:description" content="Hide secret text in text, text in an image, or an image in an image. Optional AES-256 encryption. Nothing is ever uploaded.">
+<meta property="og:url" content="https://YOUR-DOMAIN.com/studio">
+<meta property="og:image" content="https://YOUR-DOMAIN.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="GhostInk — hide anything inside anything">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GhostInk Studio — Hide Text &amp; Images Inside Images">
+<meta name="twitter:description" content="Free, private steganography in your browser. Text in text, text in image, image in image.">
+<meta name="twitter:image" content="https://YOUR-DOMAIN.com/og-image.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"GhostInk Studio","url":"https://YOUR-DOMAIN.com/studio","applicationCategory":"SecurityApplication","operatingSystem":"Any (modern web browser)","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free browser-based steganography tools: hide text in text, text in an image, or an image in an image, with optional AES-256-GCM encryption.","isPartOf":{"@type":"WebSite","name":"GhostInk","url":"https://YOUR-DOMAIN.com/"},"author":{"@type":"Organization","name":"AymanStack"}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;600;700;900&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<div class="app-shell">
+<header class="topbar">
+  <a class="brand" href="/" aria-label="GhostInk home"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span><span class="brand-copy"><strong>Ghost<span>Ink</span></strong><small>Invisible Ink</small></span></a>
+  <nav class="site-nav" aria-label="Main"><a href="/">Home</a><a href="/studio" aria-current="page">Studio</a><a href="/about">About</a><a href="/contact" class="nav-cta">Contact</a></nav>
+  <div class="privacy-chip"><span class="live-dot"></span><span>100% local processing</span><span class="mono">NO UPLOADS</span></div>
+</header>
+
+<main id="main">
+<noscript><p class="legal-strip"><strong>JavaScript is required.</strong> GhostInk runs entirely inside your browser, so the hiding and revealing tools need JavaScript enabled.</p></noscript>
+  <section class="hero">
+    <div class="eyebrow"><span class="eyebrow-line"></span><span>Hiding lab</span><span class="mono">3 TOOLS / LOCAL</span></div>
+    <h1>Hide anything.<br><span>Inside anything.</span></h1>
+    <p>Text in text, text in an image, or an image in an image. With optional encryption and no file ever uploaded to the internet.</p>
+    <p class="legal-strip"><strong>Use responsibly.</strong> These tools are provided “as is”. We are not responsible for loss, damage or consequences caused by incorrect or improper use. By using GhostInk you agree to the <a href="#terms">Terms of Use &amp; Disclaimer</a>.</p>
+  </section>
+
+  <nav class="tool-picker" aria-label="Choose a tool">
+    <button type="button" class="tool-card" data-tool="text"><span class="tool-icon">Aa</span><strong>Text in Text</strong><small>A secret message between the letters of an ordinary sentence</small><span class="mono">UNICODE</span></button>
+    <button type="button" class="tool-card" data-tool="text-image"><span class="tool-icon">▧</span><strong>Text in Image</strong><small>A message that disappears into an image's pixels</small><span class="mono">LSB · DCT</span></button>
+    <button type="button" class="tool-card" data-tool="image"><span class="tool-icon">◩</span><strong>Image in Image</strong><small>Store a whole image inside another image</small><span class="mono">PNG · WEBP</span></button>
+  </nav>
+
+  <!-- ============ 1. TEXT IN TEXT ============ -->
+  <section class="studio-card" id="tool-text" data-tool-panel="text" aria-label="Text in Text">
+    <div class="mode-tabs" id="tt-tabs" role="tablist" data-active="encode">
+      <button class="mode-tab" id="tt-tab-encode" type="button" role="tab" aria-selected="true" aria-controls="tt-panel-encode"><span class="tab-icon">↗</span><span><strong>Hide a message</strong><small>Embed it in an ordinary sentence</small></span></button>
+      <button class="mode-tab" id="tt-tab-decode" type="button" role="tab" aria-selected="false" aria-controls="tt-panel-decode" tabindex="-1"><span class="tab-icon">↙</span><span><strong>Reveal a message</strong><small>Inspect suspicious text</small></span></button>
+    </div>
+    <div class="panel" id="tt-panel-encode" role="tabpanel">
+      <div class="field"><label class="label" for="tt-visible-text">Visible text <small>Everyone can see this</small></label><input id="tt-visible-text" class="control" type="text" dir="auto" autocomplete="off" placeholder="Example: Good morning everyone"></div>
+      <div class="field"><label class="label" for="tt-secret-text">Secret text <small id="tt-secret-count">0 bytes</small></label><textarea id="tt-secret-text" class="control" rows="3" dir="auto" placeholder="Write your secret message here…"></textarea></div>
+      <div class="field"><label class="label" for="tt-secret-password">Password <small>Optional — the message is encrypted with AES-256</small></label>
+        <div class="pw-wrap"><input id="tt-secret-password" class="control" type="password" autocomplete="new-password" dir="auto" placeholder="Leave empty to hide without encryption"><button type="button" class="pw-eye" data-target="tt-secret-password" aria-label="Show or hide password">◉</button></div>
+        <input id="tt-secret-password2" class="control" type="password" autocomplete="new-password" dir="auto" placeholder="Re-enter the password to confirm" hidden>
+        <p class="note" id="tt-password-warn" hidden>Keep your password safe: there is no way to recover the message if you forget it.</p></div>
+      <div class="field"><span class="label" id="tt-mode-label">Hiding method</span>
+        <div class="modes" role="radiogroup" aria-labelledby="tt-mode-label">
+          <button type="button" class="mode" role="radio" data-mode="vs" aria-checked="true"><b>Compact</b><small>Shorter message using variation selectors</small></button>
+          <button type="button" class="mode" role="radio" data-mode="zw" aria-checked="false"><b>Classic</b><small>Longer, using common joiner characters</small></button>
+        </div></div>
+      <button id="tt-encode-btn" type="button" class="primary-button"><span class="button-label">Embed &amp; hide the text</span></button>
+      <div id="tt-encode-result-box" class="result-card" hidden>
+        <div class="result-heading"><strong>Embedded text — copy it exactly as is</strong><span id="tt-verify-badge" class="badge" hidden></span></div>
+        <p class="note">X-ray lens: this is how the hidden characters would look if they were visible</p>
+        <div id="tt-xray" class="xray" dir="auto"></div>
+        <textarea id="tt-encoded-output" class="control mono-out" readonly rows="3" dir="auto" aria-label="Embedded text"></textarea>
+        <div class="stats"><div class="stat"><b id="tt-stat-hidden">0</b><span>hidden chars</span></div><div class="stat"><b id="tt-stat-bytes">0</b><span>secret bytes</span></div><div class="stat"><b id="tt-stat-mode">—</b><span>Method</span></div></div>
+        <button id="tt-copy-btn" type="button" class="primary-button"><span class="button-label">Copy text</span></button>
+        <div class="row"><button id="tt-share-btn" type="button" class="ghost-button" hidden>Share</button><button id="tt-test-btn" type="button" class="ghost-button">Test decoding</button></div>
+        <p class="note">Some apps remove invisible characters when sending. Copy the received message and paste it into the Reveal tab to check it; if it fails, try the other method or the Share button.</p>
+      </div>
+    </div>
+    <div class="panel" id="tt-panel-decode" role="tabpanel" hidden>
+      <div class="field"><label class="label" for="tt-decode-input">Embedded text <small>Paste it here</small></label><textarea id="tt-decode-input" class="control" rows="5" dir="auto" placeholder="Paste the message you want to inspect…"></textarea><p id="tt-detect-hint" class="note" role="status"></p></div>
+      <div class="field"><label class="label" for="tt-decode-password">Password <small>If the message is protected</small></label>
+        <div class="pw-wrap"><input id="tt-decode-password" class="control" type="password" autocomplete="off" dir="auto" placeholder="Leave empty if not protected"><button type="button" class="pw-eye" data-target="tt-decode-password" aria-label="Show or hide password">◉</button></div></div>
+      <div class="row"><button id="tt-paste-btn" type="button" class="ghost-button">Paste from clipboard</button><button id="tt-clear-btn" type="button" class="ghost-button">Clear</button></div>
+      <button id="tt-decode-btn" type="button" class="primary-button decode-button"><span class="button-label">Inspect &amp; reveal the message</span></button>
+      <div id="tt-decode-result-box" class="result-card decode-result" hidden>
+        <div class="result-heading"><strong>Inspection result</strong><span id="tt-decode-badge" class="badge" hidden></span></div>
+        <div id="tt-decoded-output" class="result"><p id="tt-decoded-text" class="mono-out"></p></div>
+        <div id="tt-diag" class="diag" hidden><h3>Which hidden characters arrived?</h3><ul id="tt-diag-list" class="chips"></ul><p id="tt-diag-tip" class="note"></p></div>
+        <div id="tt-decode-actions" hidden><button id="tt-copy-secret-btn" type="button" class="ghost-button">Copy secret message</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. TEXT IN IMAGE ============ -->
+  <section class="studio-card" id="tool-text-image" data-tool-panel="text-image" aria-label="Text in Image" hidden>
+    <div class="mode-tabs" role="tablist">
+      <button class="mode-tab" id="ti-t1" type="button" role="tab" aria-selected="true"><span class="tab-icon">↗</span><span><strong>Hide &amp; encrypt</strong><small>Plant a message in an image</small></span></button>
+      <button class="mode-tab" id="ti-t2" type="button" role="tab" aria-selected="false"><span class="tab-icon">↙</span><span><strong>Decode &amp; extract</strong><small>Read a message from an image</small></span></button>
+    </div>
+    <div class="panel" id="ti-p1">
+      <label class="dz" id="ti-dz1"><input type="file" id="ti-f1" accept="image/png,image/jpeg,image/webp">
+        <div id="ti-dz1e" class="dz-empty"><span class="upload-symbol">▧</span><strong>Drag the image here or click to choose</strong><small>PNG · JPG · WebP</small></div>
+        <div id="ti-dz1p" class="dz-preview hidden"><img id="ti-th1" alt="Image preview"><div><p id="ti-fn1" class="mono-out"></p><p id="ti-dim1" class="mono-out"></p><p>Capacity: <b id="ti-cap1"></b> bytes</p></div></div></label>
+      <div class="field"><div class="label-row"><label class="label" for="ti-msg">Secret message</label><small id="ti-cnt">0 / 0</small></div><textarea id="ti-msg" class="control" rows="4" dir="auto" placeholder="Write what you want to hide, in any language…"></textarea><p class="note">A Latin character uses 1 byte; Arabic and many other scripts use 2 bytes or more.</p></div>
+      <div class="field"><label class="label" for="ti-pw1">Password <small>Optional</small></label><div class="pw-wrap"><input type="password" id="ti-pw1" class="control" autocomplete="new-password" placeholder="Leave empty to hide without encryption"><button type="button" class="pw-eye" data-target="ti-pw1" aria-label="Show or hide password">◉</button></div></div>
+      <div class="field"><div class="label-row"><span class="label">Image capacity used</span><small id="ti-pct">0%</small></div><div class="meter"><div id="ti-bar"></div></div></div>
+      <div class="field"><label class="label" for="ti-fmt">Output image format</label><select id="ti-fmt" class="control"><option value="rob">Compression-resistant — JPEG (to send as a normal photo)</option><option value="png">PNG — full quality (breaks with any compression)</option></select><p id="ti-fmtnote" class="note"></p></div>
+      <button id="ti-go1" class="primary-button" type="button" disabled><span class="button-label">Embed the secret &amp; download the image</span></button>
+      <a id="ti-dl" class="download-button hidden" href="#"><span>↓</span><span>Download the image again</span></a>
+      <div id="ti-tip" class="status-message info hidden"></div>
+    </div>
+    <div class="panel hidden" id="ti-p2">
+      <label class="dz" id="ti-dz2"><input type="file" id="ti-f2" accept="image/png,image/jpeg">
+        <div id="ti-dz2e" class="dz-empty"><span class="upload-symbol">⌕</span><strong>Drop the image (PNG or JPEG) that carries the secret</strong><small>For resistant images: the JPG you received, uncropped and not resized</small></div>
+        <div id="ti-dz2p" class="dz-preview hidden"><img id="ti-th2" alt="Encoded image"><div><p id="ti-fn2" class="mono-out"></p></div></div></label>
+      <div class="field"><label class="label" for="ti-pw2">Password <small>If the image is protected</small></label><div class="pw-wrap"><input type="password" id="ti-pw2" class="control" autocomplete="off"><button type="button" class="pw-eye" data-target="ti-pw2" aria-label="Show or hide password">◉</button></div></div>
+      <button id="ti-go2" class="primary-button decode-button" type="button" disabled><span class="button-label">Extract the message</span></button>
+      <div class="terminal-head"><span class="mono">&gt; reveal()</span><span><button id="ti-cp" type="button" class="link-btn">Copy<b id="ti-ttip" class="hidden"> ✓</b></button><button id="ti-clr" type="button" class="link-btn">Clear</button></span></div>
+      <div id="ti-term" class="terminal" aria-live="polite" role="status"><span class="is-muted">// The extracted message will appear here</span></div>
+    </div>
+  </section>
+
+  <!-- ============ 3. IMAGE IN IMAGE ============ -->
+  <section class="studio-card" id="tool-image" data-tool-panel="image" aria-label="Image in Image" hidden>
+    <div class="mode-tabs" role="tablist" aria-label="Operation mode">
+              <button class="mode-tab active" id="tab-encode" role="tab" aria-selected="true" aria-controls="panel-encode" data-mode="encode" type="button"><span class="tab-icon encode-icon">↗</span><span><strong>Hide an image</strong><small>Merge two images together</small></span><span class="tab-arrow">→</span></button>
+              <button class="mode-tab" id="tab-decode" role="tab" aria-selected="false" aria-controls="panel-decode" data-mode="decode" type="button"><span class="tab-icon decode-icon">↙</span><span><strong>Extract an image</strong><small>Reveal the hidden image</small></span><span class="tab-arrow">→</span></button>
+            </div>
+
+            <div class="panel active" id="panel-encode" role="tabpanel" aria-labelledby="tab-encode">
+              <div class="panel-intro"><div><h3>Create an image that carries your secret</h3><p>Choose a cover image, then the image you want to hide inside it.</p></div><span class="panel-step mono">STEP_01</span></div>
+              <div class="upload-grid">
+                <div class="upload-card" id="cover-drop" data-kind="cover">
+                  <input id="cover-input" type="file" accept="image/png,image/jpeg,image/webp,image/gif,.png,.jpg,.jpeg" aria-label="Choose the cover image" />
+                  <div class="upload-empty"><span class="upload-symbol cover-symbol"><span>▧</span><i>+</i></span><span class="upload-title">Cover image</span><span class="upload-subtitle">The image everyone will see</span><span class="upload-cta">Drag the image here <b>or choose a file</b></span></div>
+                  <div class="upload-filled"><img alt="Cover image preview" /><div class="file-caption"><span class="file-check">✓</span><span class="file-name"></span><button type="button" class="remove-file" aria-label="Remove image">×</button></div></div>
+                  <span class="upload-corner corner-tl"></span><span class="upload-corner corner-br"></span>
+                </div>
+                <div class="upload-card secret-upload" id="secret-drop" data-kind="secret">
+                  <input id="secret-input" type="file" accept="image/png,image/jpeg,image/webp,image/gif,.png,.jpg,.jpeg" aria-label="Choose the secret image" />
+                  <div class="upload-empty"><span class="upload-symbol secret-symbol"><span>▧</span><i>+</i></span><span class="upload-title">Secret image</span><span class="upload-subtitle">The image you want to hide</span><span class="upload-cta">Drag the image here <b>or choose a file</b></span></div>
+                  <div class="upload-filled"><img alt="Secret image preview" /><div class="file-caption"><span class="file-check">✓</span><span class="file-name"></span><button type="button" class="remove-file" aria-label="Remove image">×</button></div></div>
+                  <span class="upload-corner corner-tl"></span><span class="upload-corner corner-br"></span>
+                </div>
+              </div>
+              <div class="image-note"><span class="note-mark">i</span><span>Normal mode: the full secret image at 4-bit precision. Resistant mode: a compressed WebP copy that survives JPEG compression; cover and secret quality both improve as the cover gets larger.</span></div>
+
+              <div class="encryption-box robust-box">
+                <label class="toggle-row" for="robust-toggle"><span class="toggle-copy"><span class="toggle-icon">⚡</span><span><strong>JPEG / WhatsApp compression-resistant mode</strong><small>Hides a reduced copy that survives compression</small></span></span><span class="switch"><input id="robust-toggle" type="checkbox" /><span class="switch-track"></span></span></label>
+              </div>
+
+              <div class="encryption-box">
+                <div class="password-field" id="encode-password-wrap"><label for="encode-password">Password <span>(optional — leave empty for no encryption)</span></label><div class="password-input-wrap"><span>⌑</span><input id="encode-password" type="password" autocomplete="new-password" placeholder="Enter a password" /><button type="button" class="password-eye" data-target="encode-password" aria-label="Show password">◉</button></div><p>If you set a password, the image cannot be recovered without it. Leave it empty to hide without encryption.</p></div>
+              </div>
+
+              <button class="primary-button encode-button" id="encode-button" type="button" disabled><span class="button-spark">✳</span><span class="button-label">Choose both images to start</span><span class="button-arrow">→</span></button>
+              <div class="status-message" id="encode-status" role="status" aria-live="polite" hidden></div>
+              <div class="result-card" id="encode-result" hidden>
+                <div class="result-heading"><span class="result-check">✓</span><div><strong>Your vault image is ready</strong><small>Download it and share it on WhatsApp, Telegram or anywhere.</small></div><span class="result-tag">READY</span></div>
+                <div class="compare-frame" id="compare-frame"><img class="compare-base" id="compare-stego" alt="Image after hiding" /><div class="compare-top" id="compare-top"><img id="compare-cover" alt="Original cover" /></div><span class="compare-label label-original">Before</span><span class="compare-label label-stego">After</span><span class="compare-divider"><i>↔</i></span></div>
+                <label class="compare-slider-label" for="compare-slider"><span>Drag to compare</span><span>Cover <b>·</b> Vault image</span></label><input id="compare-slider" class="compare-slider" type="range" min="5" max="95" value="50" aria-label="Compare the cover and the image after hiding" />
+                <a class="download-button" id="download-stego" download="ghostink-image.png"><span>↓</span><span>Download image as PNG</span><small>Ready to share</small></a>
+                <div id="parts-downloads" class="parts"></div>
+              </div>
+            </div>
+
+            <div class="panel" id="panel-decode" role="tabpanel" aria-labelledby="tab-decode" hidden>
+              <div class="panel-intro"><div><h3>Reveal the image inside the vault</h3><p>Upload the vault image you received — download it straight from WhatsApp, Telegram or any other app and upload it here.</p></div><span class="panel-step mono">STEP_02</span></div>
+              <div class="upload-card decode-drop" id="stego-drop" data-kind="stego">
+                <input id="stego-input" type="file" multiple accept="image/png,image/jpeg,.png,.jpg,.jpeg" aria-label="Choose a GhostInk vault image (PNG or JPEG)" />
+                <div class="upload-empty"><span class="upload-symbol decode-symbol"><span>▧</span><i>⌕</i></span><span class="upload-title">Vault file PNG / JPG</span><span class="upload-subtitle">The image you downloaded from WhatsApp, Telegram or anywhere else</span><span class="upload-cta">Drag the file here <b>or choose a file</b></span></div>
+                <div class="upload-filled"><img alt="Vault image preview" /><div class="file-caption"><span class="file-check">✓</span><span class="file-name"></span><button type="button" class="remove-file" aria-label="Remove image">×</button></div></div>
+                <span class="upload-corner corner-tl"></span><span class="upload-corner corner-br"></span>
+              </div>
+              <div class="image-note"><span class="note-mark">i</span><span>JPG/JPEG works here only if the image was created with the "JPEG compression-resistant mode" option and was not cropped or enlarged. An ordinary JPEG, or one from normal mode, contains no extractable data.</span></div>
+              <div class="password-field decode-password-field"><label for="decode-password">Password <span>(if the image is encrypted)</span></label><div class="password-input-wrap"><span>⌑</span><input id="decode-password" type="password" autocomplete="current-password" placeholder="Leave empty if not encrypted" /><button type="button" class="password-eye" data-target="decode-password" aria-label="Show password">◉</button></div><p>Decryption is attempted locally inside your browser.</p></div>
+              <button class="primary-button decode-button" id="decode-button" type="button" disabled><span class="button-spark">⌕</span><span class="button-label">Choose the vault image to start</span><span class="button-arrow">→</span></button>
+              <div class="status-message" id="decode-status" role="status" aria-live="polite" hidden></div>
+              <div class="result-card decode-result" id="decode-result" hidden>
+                <div class="result-heading"><span class="result-check cyan-check">✓</span><div><strong>The hidden image has appeared</strong><small id="decode-result-note">Extracted successfully on your device.</small></div><span class="result-tag cyan-tag">DECODED</span></div>
+                <div class="revealed-preview"><img id="revealed-image" alt="Extracted secret image" /></div>
+                <div class="download-actions">
+                  <a class="download-button cyan-download" id="download-revealed" download="pixelvault-revealed.png"><span>↓</span><span>Download PNG</span><small>Keeps transparency</small></a>
+                  <a class="download-button jpeg-download" id="download-revealed-jpeg" href="#"><span>↓</span><span>Download JPG</span><small>White background</small></a>
+                </div>
+              </div>
+            </div>
+            
+  </section>
+
+  <section class="how-section">
+    <div class="how-grid">
+      <article class="how-card"><span class="mono">01</span><h3>Choose a tool</h3><p>Text in Text for chats, Text in Image for short messages, and Image in Image to carry whole pictures.</p></article>
+      <article class="how-card"><span class="mono">02</span><h3>Add a password</h3><p>Optional: encrypt the content with AES-256-GCM before hiding it. Without it, extraction is impossible.</p></article>
+      <article class="how-card"><span class="mono">03</span><h3>Share it normally</h3><p>Text: copy it exactly as is. Images: send and download them normally on WhatsApp, Telegram and other apps.</p></article>
+    </div>
+    <aside class="honesty-note"><strong>Important:</strong> Hiding makes the change unnoticeable, but it does not prevent specialized analysis tools from detecting that hidden data exists. Use encryption to protect the content.</aside>
+  </section>
+  <section class="terms" id="terms" aria-labelledby="terms-title">
+    <h2 id="terms-title">Terms of Use &amp; Disclaimer</h2>
+    <p class="terms-lead">Please read before using GhostInk. By using any of the tools on this site you accept these conditions.</p>
+    <ol>
+      <li><strong>Provided “as is”</strong>GhostInk is provided “as is” and “as available”, without warranties of any kind, express or implied, including fitness for a particular purpose, accuracy, reliability, availability or non-infringement.</li>
+      <li><strong>You are responsible for correct use</strong>The tools only work as described when used correctly: copying text exactly as generated, choosing the right mode, keeping the original files, not cropping, resizing, re-saving or editing output images, and using the correct password. We are not responsible for any failure, data loss, corrupted or unrecoverable messages or images that result from wrong, incomplete or improper use of the tools.</li>
+      <li><strong>Third-party apps and platforms</strong>Messaging apps, social networks, email clients, text editors and other services may strip invisible characters, compress, resize or re-encode files. We have no control over them and are not responsible for what they change, remove or destroy.</li>
+      <li><strong>Passwords and recovery</strong>Everything is processed on your device and we cannot see or recover your data or passwords. If you lose or forget a password, the hidden content is permanently unrecoverable. Keeping passwords and backups safe is entirely your responsibility.</li>
+      <li><strong>No guarantee of secrecy or security</strong>Steganography only hides that data exists; it does not make detection impossible, and specialized analysis tools may reveal it. Encryption strength depends on the password you choose. Do not rely on these tools alone for life-critical, legally critical or high-risk situations. We are not responsible for any disclosure of information.</li>
+      <li><strong>Lawful and ethical use only</strong>You must use the tools only for lawful purposes and in compliance with the laws that apply to you. You are solely responsible for the content you hide, store, send or extract. Do not use GhostInk to conceal illegal content, to harm, harass, deceive or defraud others, to spread malware, or to violate anyone’s rights. We are not responsible for any misuse of the tools by anyone.</li>
+      <li><strong>Your device and environment</strong>Your browser, extensions, operating system, network and device security are outside our control. We are not responsible for losses caused by malware, compromised devices, shared computers or unsafe environments.</li>
+      <li><strong>Limitation of liability</strong>To the maximum extent permitted by law, the creators and operators of GhostInk shall not be liable for any direct, indirect, incidental, special, consequential or punitive damages, or for any loss of data, profits, reputation or opportunity, arising from the use of, or inability to use, the tools — even if we were told such damage was possible.</li>
+      <li><strong>Back up your originals</strong>Always keep copies of your original images and texts. Never rely on a single output file as the only copy of something important.</li>
+      <li><strong>Changes and acceptance</strong>These terms and the tools may change at any time without notice. If you do not agree with these conditions, do not use GhostInk. Continued use means you accept them.</li>
+    </ol>
+    <p class="terms-foot">Last updated: October 2026. These terms are general information and not legal advice.</p>
+  </section>
+</main>
+<footer class="footer"><span class="footer-brand">GhostInk</span><a href="/">Home</a><a href="/about">About</a><a href="/contact">Contact</a><a href="#terms">Terms &amp; Disclaimer</a><span>Built for privacy, runs on your device.</span><span class="mono">100% CLIENT-SIDE</span><span class="made-by">Made by <strong>AymanStack</strong></span></footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="js/core.js"></script>
+<script src="js/text-text.js"></script>
+<script src="js/text-image.js"></script>
+<script src="js/worker-source.js"></script>
+<script src="js/image-image.js"></script>
+</body>
+</html>

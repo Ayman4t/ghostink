@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https://formsubmit.co; base-uri 'none'; form-action https://formsubmit.co; object-src 'none'; frame-src 'none'; manifest-src 'none'; media-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#100b24">
+<title>Contact GhostInk — Questions, Feedback &amp; Bug Reports</title>
+<meta name="description" content="Contact the GhostInk team: send a question, feedback, a feature idea or a bug report using the form. We read every message.">
+<meta name="author" content="AymanStack">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://YOUR-DOMAIN.com/contact">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GhostInk">
+<meta property="og:title" content="Contact GhostInk">
+<meta property="og:description" content="Questions, feedback or a bug report? Send us a message.">
+<meta property="og:url" content="https://YOUR-DOMAIN.com/contact">
+<meta property="og:image" content="https://YOUR-DOMAIN.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="GhostInk — hide anything inside anything">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contact GhostInk">
+<meta name="twitter:description" content="Questions, feedback or a bug report? Send us a message.">
+<meta name="twitter:image" content="https://YOUR-DOMAIN.com/og-image.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"ContactPage","@id":"https://YOUR-DOMAIN.com/contact#page","url":"https://YOUR-DOMAIN.com/contact","name":"Contact GhostInk","isPartOf":{"@type":"WebSite","name":"GhostInk","url":"https://YOUR-DOMAIN.com/"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://YOUR-DOMAIN.com/"},{"@type":"ListItem","position":2,"name":"Contact","item":"https://YOUR-DOMAIN.com/contact"}]}
+]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;600;700;900&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="app-shell">
+<header class="topbar">
+  <a class="brand" href="/" aria-label="GhostInk home"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span><span class="brand-copy"><strong>Ghost<span>Ink</span></strong><small>Invisible Ink</small></span></a>
+  <nav class="site-nav" aria-label="Main"><a href="/">Home</a><a href="/studio">Studio</a><a href="/about">About</a><a href="/contact" class="nav-cta" aria-current="page">Contact</a></nav>
+</header>
+
+<main id="main">
+  <section class="page-hero">
+    <h1>Let’s talk.</h1>
+    <p>Question, feedback, feature idea or bug report? Send us a message and we will get back to you by email.</p>
+  </section>
+
+  <div class="contact-grid">
+    <section class="form-card" aria-labelledby="form-title">
+      <h2 id="form-title" class="form-title">Send a message</h2>
+      <!-- Replace YOUR_EMAIL_HERE with the inbox that should receive messages (FormSubmit.co). See README → "Contact form". -->
+      <form id="contact-form" action="https://formsubmit.co/YOUR_EMAIL_HERE" method="POST" novalidate>
+        <div class="field"><label class="label" for="cf-name">Your name <small class="req">required</small></label><input id="cf-name" name="name" class="control" type="text" autocomplete="name" required maxlength="100" placeholder="Jane Doe"></div>
+        <div class="field"><label class="label" for="cf-email">Your email <small class="req">required</small></label><input id="cf-email" name="email" class="control" type="email" autocomplete="email" required maxlength="150" placeholder="you@example.com"></div>
+        <div class="field"><label class="label" for="cf-topic">Topic</label>
+          <select id="cf-topic" name="topic" class="control"><option>General question</option><option>Bug report</option><option>Feature idea</option><option>Business / partnership</option></select></div>
+        <div class="field"><label class="label" for="cf-message">Message <small class="req">required</small></label><textarea id="cf-message" name="message" class="control" rows="6" required maxlength="4000" placeholder="How can we help?"></textarea></div>
+        <p class="form-hint">Please never send passwords or secret content here. Messages are delivered by email.</p>
+        <!-- spam trap + FormSubmit options -->
+        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="_subject" value="New GhostInk contact message">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://YOUR-DOMAIN.com/contact?sent=1">
+        <button id="cf-submit" class="btn btn-primary btn-block" type="submit">Send message</button>
+        <div id="cf-status" class="form-status" role="status" aria-live="polite" hidden></div>
+      </form>
+    </section>
+
+    <aside class="side-list" aria-label="Other ways to help">
+      <div class="panel-card"><h3>Quick answers</h3><p>Most questions are answered in our <a href="/#faq">FAQ</a>.</p></div>
+      <div class="panel-card"><h3>Reporting a bug?</h3><p>Tell us the tool (Text in Text, Text in Image or Image in Image), your browser and what happened. Do not attach secret content.</p></div>
+      <div class="panel-card"><h3>Response time</h3><p>We usually reply within a few days.</p></div>
+    </aside>
+  </div>
+</main>
+
+<footer class="footer"><span class="footer-brand">GhostInk</span><a href="/">Home</a><a href="/studio">Studio</a><a href="/about">About us</a><a href="/contact">Contact us</a><a href="/studio#terms">Terms &amp; Disclaimer</a><span class="made-by">Made by <strong>AymanStack</strong></span></footer>
+</div>
+<script src="js/site.js"></script>
+<script src="js/contact.js"></script>
+</body>
+</html>

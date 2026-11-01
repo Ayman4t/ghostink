@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none'; manifest-src 'none'; media-src 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#100b24">
+<title>GhostInk — Hide Secret Messages Inside Text &amp; Images (Free Steganography Tool)</title>
+<meta name="description" content="GhostInk is a free online steganography tool. Hide text inside text, text inside an image, or one image inside another, with optional AES-256 encryption. 100% private: nothing is uploaded.">
+<meta name="keywords" content="steganography, hide text in image, hide image in image, invisible text, secret message, AES-256, private, free online tool">
+<meta name="author" content="AymanStack">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://YOUR-DOMAIN.com/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GhostInk">
+<meta property="og:title" content="GhostInk — Hide Secret Messages Inside Text &amp; Images">
+<meta property="og:description" content="Free, private steganography in your browser: text in text, text in an image, image in an image. Optional AES-256 encryption. Nothing is uploaded.">
+<meta property="og:url" content="https://YOUR-DOMAIN.com/">
+<meta property="og:image" content="https://YOUR-DOMAIN.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="GhostInk — hide anything inside anything">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GhostInk — Hide Secret Messages Inside Text &amp; Images">
+<meta name="twitter:description" content="Free, private steganography in your browser. Text in text, text in image, image in image.">
+<meta name="twitter:image" content="https://YOUR-DOMAIN.com/og-image.png">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebSite","@id":"https://YOUR-DOMAIN.com/#website","url":"https://YOUR-DOMAIN.com/","name":"GhostInk","description":"Free online steganography tools that run entirely in your browser.","inLanguage":"en","publisher":{"@id":"https://YOUR-DOMAIN.com/#org"}},
+{"@type":"Organization","@id":"https://YOUR-DOMAIN.com/#org","name":"GhostInk","url":"https://YOUR-DOMAIN.com/","logo":"https://YOUR-DOMAIN.com/apple-touch-icon.png","founder":{"@type":"Organization","name":"AymanStack"},"contactPoint":{"@type":"ContactPoint","contactType":"customer support","url":"https://YOUR-DOMAIN.com/contact","availableLanguage":["English","Arabic"]}},
+{"@type":"WebApplication","@id":"https://YOUR-DOMAIN.com/#app","name":"GhostInk Studio","url":"https://YOUR-DOMAIN.com/studio","applicationCategory":"SecurityApplication","operatingSystem":"Any (modern web browser)","browserRequirements":"Requires JavaScript","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["Hide text inside text with invisible Unicode characters","Hide text inside an image (PNG LSB or JPEG-robust DCT)","Hide an image inside another image","Optional AES-256-GCM password encryption","100% client-side: no uploads"],"publisher":{"@id":"https://YOUR-DOMAIN.com/#org"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is GhostInk?","acceptedAnswer":{"@type":"Answer","text":"GhostInk is a free set of three steganography tools that hide secret text or images inside ordinary text and pictures. It runs entirely in your web browser."}},
+{"@type":"Question","name":"Are my files or messages uploaded anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. All hiding, revealing and encryption happens locally on your device. GhostInk never sends your text, images or passwords to a server."}},
+{"@type":"Question","name":"What is the difference between steganography and encryption?","acceptedAnswer":{"@type":"Answer","text":"Encryption scrambles content so it cannot be read without a key, but it is obvious that something is encrypted. Steganography hides the fact that a message exists at all. GhostInk lets you combine both by adding an optional password that encrypts the message with AES-256-GCM before hiding it."}},
+{"@type":"Question","name":"Will my hidden message survive WhatsApp, Telegram or JPEG compression?","acceptedAnswer":{"@type":"Answer","text":"Yes, if you choose the compression-resistant mode. It uses a robust JPEG-friendly method so the hidden data can survive normal photo sharing, as long as the image is not cropped or resized. Plain PNG mode gives full quality but breaks if the image is re-compressed."}},
+{"@type":"Question","name":"How strong is the password protection?","acceptedAnswer":{"@type":"Answer","text":"When you set a password, your content is encrypted with AES-256-GCM using a key derived with PBKDF2-SHA256 before it is hidden. If you forget the password the content cannot be recovered."}},
+{"@type":"Question","name":"Does GhostInk work on a phone?","acceptedAnswer":{"@type":"Answer","text":"Yes. GhostInk works in any modern mobile or desktop browser with no installation or sign-up."}}
+]}
+]}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;600;700;900&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="app-shell">
+<header class="topbar">
+  <a class="brand" href="/" aria-label="GhostInk home"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span><span class="brand-copy"><strong>Ghost<span>Ink</span></strong><small>Invisible Ink</small></span></a>
+  <nav class="site-nav" aria-label="Main"><a href="/" aria-current="page">Home</a><a href="/studio">Studio</a><a href="/about">About</a><a href="/contact" class="nav-cta">Contact</a></nav>
+</header>
+
+<main id="main">
+  <section class="hero-lg" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <h1 id="hero-title">Hide secret messages inside text and images.</h1>
+      <p class="lead">GhostInk is a free steganography studio. Hide text in text, text in a photo, or a whole picture inside another one, then lock it with a password if you like. Everything happens in your browser.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/studio">Open the studio</a>
+        <a class="btn btn-ghost" href="#features">See the 3 features</a>
+      </div>
+      <p class="assure">Free. No sign-up. Nothing leaves your device.</p>
+    </div>
+    <figure class="torch-card" id="torch">
+      <div class="torch-scene" id="torch-scene">
+        <div class="note note-visible" aria-hidden="true"><span>Good morning everyone,</span><span>&nbsp;</span><span>see you at the usual place.</span><span>&nbsp;</span></div>
+        <div class="note note-hidden" aria-hidden="true"><span>&nbsp;</span><span>meet me at six.</span><span>&nbsp;</span><span>bring the key.</span></div>
+      </div>
+      <figcaption>Ordinary on the surface. Move your pointer over the note to shine the UV light and read what is hidden underneath.</figcaption>
+    </figure>
+  </section>
+
+  <section class="section" id="features" aria-labelledby="features-title">
+    <div class="section-head">
+      <h2 id="features-title">Three ways to hide something</h2>
+      <p>Pick the tool that fits what you want to hide and where you plan to send it.</p>
+    </div>
+    <div class="feature-list">
+      <article class="feature-row">
+        <div class="feature-text">
+          <h3>Text in Text</h3>
+          <p>Tuck a secret message between the letters of an ordinary sentence, then paste it into any chat, post or email.</p>
+          <ul><li>Invisible Unicode characters, in a compact or classic method</li><li>X-ray view to inspect suspicious text</li><li>Works with any language, including Arabic</li></ul>
+          <a class="text-link" href="/studio#text">Open Text in Text</a>
+        </div>
+        <div class="specimen" aria-hidden="true">
+          <p class="spec-text">G<i></i>o<i></i>o<i></i>d <i></i>m<i></i>o<i></i>r<i></i>n<i></i>i<i></i>n<i></i>g</p>
+          <small>Gold bars mark where invisible characters sit.</small>
+        </div>
+      </article>
+      <article class="feature-row">
+        <div class="feature-text">
+          <h3>Text in Image</h3>
+          <p>Make a message disappear into the pixels of a normal-looking photo, then share the photo as usual.</p>
+          <ul><li>Lossless PNG, or a JPEG that survives compression</li><li>Capacity meter before you hide anything</li><li>Optional AES-256 password protection</li></ul>
+          <a class="text-link" href="/studio#text-image">Open Text in Image</a>
+        </div>
+        <div class="specimen" aria-hidden="true">
+          <div class="pix"><span class="c"></span><span class="b"></span><span class="d"></span><span class="b"></span><span></span><span class="k"></span><span></span><span></span><span></span><span class="c"></span><span></span><span></span><span></span><span class="b"></span><span class="k"></span><span></span><span></span><span class="d"></span><span class="d"></span><span></span><span class="b"></span><span></span><span class="k"></span><span></span><span class="d"></span><span></span><span></span><span></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="k"></span><span></span><span></span><span></span><span></span><span class="d"></span><span></span><span class="b"></span><span></span><span class="k"></span><span></span><span class="b"></span><span class="c"></span><span class="d"></span><span class="b"></span><span class="k"></span><span></span><span></span><span></span><span class="c"></span><span></span><span class="b"></span><span class="k"></span><span class="b"></span><span></span><span></span><span></span><span class="b"></span><span class="b"></span><span class="c"></span><span class="k"></span><span></span><span></span><span class="b"></span><span></span><span></span><span></span><span class="k"></span><span></span><span class="b"></span><span class="d"></span></div>
+          <small>A few pixels quietly carry your message.</small>
+        </div>
+      </article>
+      <article class="feature-row">
+        <div class="feature-text">
+          <h3>Image in Image</h3>
+          <p>Store an entire picture inside another one, then reveal it with a before and after slider.</p>
+          <ul><li>Survives WhatsApp and Telegram compression</li><li>Error correction repairs small damage</li><li>Download the revealed picture as PNG or JPG</li></ul>
+          <a class="text-link" href="/studio#image">Open Image in Image</a>
+        </div>
+        <div class="specimen" aria-hidden="true">
+          <div class="frames"><i></i><b>hidden</b></div>
+          <small>One picture rides inside the other.</small>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="how-title">
+    <div class="section-head"><h2 id="how-title">Hide it in three steps</h2></div>
+    <ol class="steps">
+      <li><h3>Choose a tool</h3><p>Text in Text for chats, Text in Image for short messages, Image in Image for whole pictures.</p></li>
+      <li><h3>Add a password</h3><p>Optional. Your content is encrypted with AES-256-GCM before it is hidden, so it cannot be read without the password.</p></li>
+      <li><h3>Share it normally</h3><p>Copy the text exactly as it is, or send the image on WhatsApp, Telegram or email. Your friend reveals it in GhostInk.</p></li>
+    </ol>
+  </section>
+
+  <section class="section" aria-labelledby="why-title">
+    <h2 id="why-title" class="visually-hidden">Privacy</h2>
+    <p class="statement">Your text, your images and your password are handled by your browser and nowhere else. <em>There is no upload, no account and no server</em> holding a copy.</p>
+    <div class="facts">
+      <div><h3>Runs on your device</h3><p>Hiding, revealing and encryption all happen locally.</p></div>
+      <div><h3>Hidden and encrypted</h3><p>Steganography hides that a message exists. A password also makes it unreadable.</p></div>
+      <div><h3>Free to use</h3><p>No installation, and it works on phones and desktops.</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="faq" aria-labelledby="faq-title">
+    <div class="section-head"><h2 id="faq-title">Questions people ask</h2></div>
+    <div class="faq">
+      <details><summary>What is GhostInk?</summary><p>GhostInk is a free set of three steganography tools that hide secret text or images inside ordinary text and pictures. It runs entirely in your web browser.</p></details>
+      <details><summary>Are my files or messages uploaded anywhere?</summary><p>No. All hiding, revealing and encryption happens locally on your device. GhostInk never sends your text, images or passwords to a server.</p></details>
+      <details><summary>What is the difference between steganography and encryption?</summary><p>Encryption scrambles content so it cannot be read without a key, but it is obvious that something is encrypted. Steganography hides the fact that a message exists at all. GhostInk lets you combine both by adding an optional password that encrypts the message with AES-256-GCM before hiding it.</p></details>
+      <details><summary>Will my hidden message survive WhatsApp, Telegram or JPEG compression?</summary><p>Yes, if you choose the compression-resistant mode. It uses a robust JPEG-friendly method so the hidden data can survive normal photo sharing, as long as the image is not cropped or resized. Plain PNG mode gives full quality but breaks if the image is re-compressed.</p></details>
+      <details><summary>How strong is the password protection?</summary><p>When you set a password, your content is encrypted with AES-256-GCM using a key derived with PBKDF2-SHA256 before it is hidden. If you forget the password the content cannot be recovered.</p></details>
+      <details><summary>Does GhostInk work on a phone?</summary><p>Yes. GhostInk works in any modern mobile or desktop browser with no installation or sign-up.</p></details>
+    </div>
+  </section>
+
+  <section class="cta-band" aria-labelledby="cta-title">
+    <h2 id="cta-title">Ready to hide something?</h2>
+    <p>Open the studio and try it in under a minute. Have a question first? <a href="/contact">Contact us</a>.</p>
+    <div class="btn-row"><a class="btn btn-primary" href="/studio">Open the studio</a><a class="btn btn-ghost" href="/about">About GhostInk</a></div>
+  </section>
+</main>
+
+<footer class="footer"><span class="footer-brand">GhostInk</span><a href="/">Home</a><a href="/studio">Studio</a><a href="/about">About us</a><a href="/contact">Contact us</a><a href="/studio#terms">Terms &amp; Disclaimer</a><span class="made-by">Made by <strong>AymanStack</strong></span></footer>
+</div>
+<script src="js/site.js"></script>
+</body>
+</html>
