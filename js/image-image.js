@@ -348,7 +348,8 @@
 
   const ROBUST_MAX_SIDE = 1536; // keeps WhatsApp (~1600 px limit) from resizing and breaking the 8x8 block grid
   const ROBUST_MIN_BUDGET = 1200;
-  const ROBUST_PROFILES = { cover: { fill: 0.35 }, balanced: { fill: 0.6 }, secret: { fill: 1 } }; // share of the cover's capacity that is used
+  const ROBUST_PROFILES = { cover: { fill: 0.35 }, balanced: { fill: 0.6 }, secret: { fill: 1 }, reliable: { fill: 0.8 } }; // share of the cover's capacity that is used
+  const ROBUST_STRENGTH = 2.6; // QIM strength written into new files (the decoder tries 2.6, 1.8 and 1.0)
   let THUMB_MAX_SIDE = 640;
 
   function canvasToBlob(canvas, type, quality) {
@@ -455,11 +456,13 @@
       // Every hidden byte adds a little noise to the cover, so the budget is the share of the cover's capacity
       // picked with the balance selector; the part that is not used stays untouched.
       const overhead = passwordEnabled ? 44 : 0;
-      const hq = true; // WhatsApp-quality profile (fixed)
-      const rbOpts = hq ? { minRepeat: 1, maxRepeat: 2 } : undefined;
-      const { capacity } = await runWorker('robustCapacity', { width, height, repeat: hq ? 1 : 2 });
+      // Reliability first: every bit is stored twice (repeat x2) with a stronger QIM step, and the secret is sized to 80%
+      // of the repeat-2 capacity. Old setting (repeat x1, strength 1.8, 100% fill) broke below about JPEG q55 and after
+      // any second re-compression; this one survives q32 and several generations of re-compression in testing.
+      const rbOpts = { minRepeat: 2, maxRepeat: 2, k: ROBUST_STRENGTH };
+      const { capacity } = await runWorker('robustCapacity', { width, height, repeat: 2 });
       if (capacity - overhead < ROBUST_MIN_BUDGET) throw new Error('The cover is too small for compression-resistant mode. Choose a cover at least 800 pixels wide.');
-      const profile = ROBUST_PROFILES.secret; // maximum secret quality (fixed)
+      const profile = ROBUST_PROFILES.reliable; // fixed
       const budget = Math.max(ROBUST_MIN_BUDGET, Math.floor(capacity * profile.fill) - overhead);
       status('encode', 'Choosing the best possible quality for the secret image…', 'info');
       THUMB_MAX_SIDE = 1280;

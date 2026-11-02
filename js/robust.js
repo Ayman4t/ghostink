@@ -4,6 +4,7 @@
  * Plain script: works inside the Web Worker and in Node (module.exports) for tests. */
 
 const RB_K = 1.8;   // QIM step = RB_K x JPEG Q50 step of the coefficient (lower = less visible noise, less robust)
+const RB_K_ENCODE = 2.6; // strength used by new files. Measured: 2.6 survives JPEG q32 and several re-compressions; 1.8 broke below q55, 2.4/2.8 were erratic (QIM step vs JPEG step)
 const RB_CAP = 2;   // repeat count (2 = minimum; every extra repeat only adds visible noise)
 const RB_NSYM = 32;   // Reed-Solomon parity bytes per 255-byte block
 const JPEG_Q50 = [[16, 11, 10, 16, 24, 40, 51, 61], [12, 12, 14, 19, 26, 58, 60, 55], [14, 13, 16, 24, 40, 57, 69, 56], [14, 17, 22, 29, 51, 87, 80, 62], [18, 22, 37, 56, 68, 109, 103, 77]];
@@ -15,7 +16,7 @@ const RB_COEFS = [[0, 2], [0, 1], [1, 1], [1, 0], [2, 1], [1, 2], [2, 0], [3, 0]
 const RB_QSTEP = RB_COEFS.map(([u, v]) => JPEG_Q50[u][v]);
 let RB_DELTAS = RB_QSTEP.map((q) => Math.round(q * RB_K * 2) / 2);
 function rbSetK(k) { RB_DELTAS = RB_QSTEP.map((q) => Math.round(q * k * 2) / 2); }
-const RB_K_LIST = [1.8, 1.0]; // strengths the decoder tries (1.8 = classic, 1.0 = WhatsApp HQ profile)
+const RB_K_LIST = [2.6, 1.8, 1.0]; // strengths the decoder tries, newest first (2.6 = current files, 1.8 = files made before this fix, 1.0 = legacy HQ)
 const RB_HEADER_BITS = 64;
 const RB_HEADER_REPEAT = 40;
 const RB_HEADER_SLOTS = RB_HEADER_BITS * RB_HEADER_REPEAT;
@@ -340,7 +341,7 @@ function applyHeadroom(rgba) {
 }
 
 function rbEncodeSync(rgba, width, height, dataBytes, encrypted, opts) {
-  const kUsed = (opts && opts.k) || RB_K;
+  const kUsed = (opts && opts.k) || RB_K_ENCODE;
   const capRepeat = (opts && opts.maxRepeat) || RB_CAP;
   const minRepeat = (opts && opts.minRepeat) || RB_MIN_REPEAT;
   rbSetK(kUsed);
@@ -369,15 +370,19 @@ function rbEncodeSync(rgba, width, height, dataBytes, encrypted, opts) {
 }
 
 function rbDecodeSync(rgba, width, height) {
-  let firstError = null;
+  // The header is repeated 40x, so it often still reads at the wrong strength while the payload does not. Therefore
+  // an error-correction failure must NOT stop the search: every strength is tried before giving up.
+  let noData = null, damaged = null;
   for (const k of RB_K_LIST) {
     rbSetK(k);
     try { return rbDecodeOnce(rgba, width, height); } catch (error) {
-      if (!/No PixelVault data found/.test(error.message || '')) throw error;
-      if (!firstError) firstError = error;
+      const message = error.message || '';
+      if (/No PixelVault data found/.test(message)) { if (!noData) noData = error; }
+      else if (/Error correction failed/.test(message)) { if (!damaged) damaged = error; }
+      else throw error;
     }
   }
-  throw firstError;
+  throw damaged || noData;
 }
 
 function rbDecodeOnce(rgba, width, height) {
