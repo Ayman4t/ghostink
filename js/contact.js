@@ -40,7 +40,11 @@
       form.reset();
       say('Thank you! Your message was sent. We will reply by email.', 'ok');
     } catch (err) {
-      say('Sorry, the message could not be sent. Please try again in a moment.', 'err');
+      // AJAX can fail before the inbox is activated (or if the browser blocks it): fall back to a normal
+      // FormSubmit POST, which also shows FormSubmit's own activation / thank-you page.
+      say('Sending…', 'ok');
+      form.submit();
+      return;
     } finally {
       btn.disabled = false; btn.textContent = old;
     }
