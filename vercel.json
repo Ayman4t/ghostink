@@ -8,7 +8,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' blob: data:; connect-src https://formsubmit.co; worker-src 'self' blob:; base-uri 'none'; form-action https://formsubmit.co; object-src 'none'; frame-src 'none'; manifest-src 'none'; media-src 'none'; upgrade-insecure-requests; frame-ancestors 'none'"
+          "value": "default-src 'none'; script-src 'self' https://cdn.vercel-insights.com; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' blob: data:; connect-src https://formsubmit.co https://vitals.vercel-insights.com; worker-src 'self' blob:; base-uri 'none'; form-action https://formsubmit.co; object-src 'none'; frame-src 'none'; manifest-src 'none'; media-src 'none'; upgrade-insecure-requests; frame-ancestors 'none'"
         },
         {
           "key": "Strict-Transport-Security",
@@ -45,7 +45,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' blob: data:; connect-src 'none'; worker-src 'self' blob:; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none'; manifest-src 'none'; media-src 'none'; upgrade-insecure-requests; frame-ancestors 'none'"
+          "value": "default-src 'none'; script-src 'self' https://cdn.vercel-insights.com; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' blob: data:; connect-src https://vitals.vercel-insights.com; worker-src 'self' blob:; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none'; manifest-src 'none'; media-src 'none'; upgrade-insecure-requests; frame-ancestors 'none'"
         },
         {
           "key": "Strict-Transport-Security",
