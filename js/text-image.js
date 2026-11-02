@@ -4,6 +4,7 @@ const toast = (msg, type = 'ok') => SS.toast(msg, type === 'err' ? 'err' : 'ok')
 const MAGIC = [0x53, 0x56, 0x4C, 0x54]; // "SVLT"
 const HDR = 9;       // magic(4) + flags(1) + length(4)
 const ENC_OVERHEAD = 16 + 12 + 16; // salt + iv + GCM tag
+const MIN_COVER_SIDE = 100, MIN_COVER_CAP = 100; // bytes the image must be able to hide
 const capBytes = (w, h) => Math.max(0, Math.floor(w * h * 3 / 8) - HDR);
 
 function writeBytes(px, offset, bytes) {
@@ -134,10 +135,17 @@ function refresh() {
 }
 dropzone($('ti-dz1'), $('ti-f1'), async f => {
   if (!/^image\/(png|jpeg|webp)$/.test(f.type)) return toast('Unsupported format. Choose PNG, JPG or WebP.', 'err');
+  const dzErr = $('ti-dzerr'), refuse = msg => { dzErr.textContent = '⚠️ ' + msg + ' This image was not added.'; dzErr.classList.remove('hidden'); toast(msg, 'err'); $('ti-f1').value = ''; };
   try {
     const { img, url } = await loadImage(f);
-    src = { img, cap: capBytes(img.naturalWidth, img.naturalHeight), name: f.name, capR: robCap(img.naturalWidth, img.naturalHeight) };
-    $('ti-fmt').value = 'rob';
+    const w = img.naturalWidth, h = img.naturalHeight, capPng = capBytes(w, h), capRob = robCap(w, h);
+    // Too small to carry even a short message: refuse it now instead of failing at embed time.
+    if (Math.min(w, h) < MIN_COVER_SIDE || capPng < MIN_COVER_CAP) { URL.revokeObjectURL(url); return refuse(`This image is too small (${w} × ${h} px) to hide a message. Choose a larger one — at least 100 × 100 pixels, ideally 800 pixels or more.`); }
+    dzErr.classList.add('hidden');
+    src = { img, cap: capPng, name: f.name, capR: capRob };
+    // Resistant mode needs far more room; when this image is too small for it, fall back to PNG and say so.
+    $('ti-fmt').value = capRob >= MIN_COVER_CAP ? 'rob' : 'png';
+    if (capRob < MIN_COVER_CAP) toast('This image is too small for compression-resistant mode, so PNG format was selected. Use a larger image to survive WhatsApp / JPEG compression.', 'err');
     $('ti-th1').src = url; $('ti-fn1').textContent = f.name; $('ti-dim1').textContent = `${img.naturalWidth} × ${img.naturalHeight}`; $('ti-cap1').textContent = src.cap.toLocaleString('en');
     $('ti-dz1e').classList.add('hidden'); $('ti-dz1p').classList.remove('hidden'); $('ti-dz1p').classList.add('flex'); refresh();
   } catch (e) { toast(imgErr(e), 'err'); }

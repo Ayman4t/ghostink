@@ -42,7 +42,7 @@
 
   function refreshButtons() {
     const enc = $('#encode-button');
-    enc.disabled = state.busy || !state.cover || !state.secret;
+    enc.disabled = state.busy || !state.cover || !state.secret || !!state.coverBlocked;
     enc.querySelector('.button-label').textContent = state.busy && state.mode === 'encode'
       ? 'Hiding the image inside the pixels…'
       : !state.cover || !state.secret ? 'Choose both images to start' : 'Create the vault image & download it';
@@ -75,6 +75,7 @@
     const previous = state[kind];
     if (previous?.url) URL.revokeObjectURL(previous.url);
     state[kind] = null;
+    if (kind === 'cover') state.coverBlocked = '';
     if (kind === 'stego') state.stegoFiles = [];
     card.classList.remove('has-file');
     card.querySelector('img').removeAttribute('src');
@@ -85,6 +86,30 @@
     else clearResult('decode');
     status(kind === 'stego' ? 'decode' : 'encode');
     refreshButtons();
+  }
+
+  // A cover that is too small cannot hold a usable hidden image, so it is refused at upload time instead of failing later.
+  const COVER_MIN_SIDE = 64;          // shortest side, in pixels
+  const COVER_MIN_PIXELS = 40000;     // roughly 200 x 200
+  const COVER_MIN_NORMAL_BUDGET = 2048; // bytes the cover must be able to carry in normal mode
+
+  /** Returns a message explaining why this cover cannot be used, or '' when it is fine. */
+  async function coverProblem(width, height) {
+    const tooSmall = `This cover image is too small (${width} × ${height} px) to hide an image. Choose a larger one — at least 200 × 200 pixels, ideally 800 pixels or more.`;
+    if (Math.min(width, height) < COVER_MIN_SIDE || width * height < COVER_MIN_PIXELS) return tooSmall;
+    if ($('#robust-toggle')?.checked) {
+      try {
+        const scale = ROBUST_MAX_SIDE / Math.max(width, height);
+        const w = Math.floor(width * scale / 8) * 8;
+        const h = Math.floor(height * scale / 8) * 8;
+        if (w < 8 || h < 8) return tooSmall;
+        const { capacity } = await runWorker('robustCapacity', { width: w, height: h, repeat: 2 });
+        if (capacity < ROBUST_MIN_BUDGET + 44) return 'This cover image is too narrow or too small for compression-resistant mode. Choose a larger, less elongated image (at least 800 pixels wide).';
+      } catch { /* engine unavailable here: the size gate above still applies, encode() re-checks */ }
+    } else if (Math.floor((width * height * 3 - 42 * 8) / 8) < COVER_MIN_NORMAL_BUDGET) {
+      return tooSmall;
+    }
+    return '';
   }
 
   async function acceptFile(kind, file) {
@@ -100,8 +125,16 @@
       if (bitmap.width < 1 || bitmap.height < 1) throw new Error('Could not read the image dimensions.');
       if (bitmap.width * bitmap.height > MAX_PIXELS) throw new Error('The image is too large for safe processing. The maximum is 10 million pixels.');
       if (kind === 'stego' && (bitmap.width > 65535 || bitmap.height > 65535)) throw new Error('The file dimensions exceed what the PixelVault format supports.');
+      if (kind === 'cover') {
+        const problem = await coverProblem(bitmap.width, bitmap.height);
+        if (problem) { const refused = new Error(problem); refused.refused = true; throw refused; }
+      }
     } catch (error) {
       showToast(error.message || 'Could not open the image.');
+      if (error.refused) {
+        status('encode', `⚠️ ${error.message} This image was not added.`, 'error');
+        $('#cover-input').value = '';
+      }
       return;
     } finally {
       bitmap?.close();
@@ -112,6 +145,7 @@
     if (previous?.url) URL.revokeObjectURL(previous.url);
     const url = URL.createObjectURL(file);
     state[kind] = { file, url };
+    if (kind === 'cover') state.coverBlocked = '';
     card.querySelector('img').src = url;
     card.querySelector('.file-name').textContent = file.name;
     card.classList.add('has-file');
@@ -637,6 +671,21 @@
     card.addEventListener('dragover', (event) => { event.preventDefault(); if (!state.busy) card.classList.add('drag-over'); });
     card.addEventListener('dragleave', (event) => { if (!card.contains(event.relatedTarget)) card.classList.remove('drag-over'); });
     card.addEventListener('drop', (event) => { event.preventDefault(); card.classList.remove('drag-over'); if (!state.busy) { if (kind === 'stego') state.stegoFiles = [...(event.dataTransfer?.files || [])]; acceptFile(kind, event.dataTransfer?.files?.[0]); } });
+  });
+
+  // Switching to compression-resistant mode can make an already-chosen cover unusable: warn right away.
+  $('#robust-toggle')?.addEventListener('change', async () => {
+    state.coverBlocked = '';
+    if (state.cover && !state.busy) {
+      try {
+        const bitmap = await createImageBitmap(state.cover.file);
+        const problem = await coverProblem(bitmap.width, bitmap.height);
+        bitmap.close();
+        if (problem) { state.coverBlocked = problem; showToast(problem); status('encode', `⚠️ ${problem} Remove it and choose another cover.`, 'error'); }
+        else status('encode');
+      } catch { /* leave the state as is; encode() re-checks */ }
+    }
+    refreshButtons();
   });
 
   $('#encode-button').addEventListener('click', encode);

@@ -114,6 +114,7 @@
       <label class="dz" id="ti-dz1"><input type="file" id="ti-f1" accept="image/png,image/jpeg,image/webp">
         <div id="ti-dz1e" class="dz-empty"><span class="upload-symbol">▧</span><strong>Drag the image here or click to choose</strong><small>PNG · JPG · WebP</small></div>
         <div id="ti-dz1p" class="dz-preview hidden"><img id="ti-th1" alt="Image preview"><div><p id="ti-fn1" class="mono-out"></p><p id="ti-dim1" class="mono-out"></p><p>Capacity: <b id="ti-cap1"></b> bytes</p></div></div></label>
+      <p id="ti-dzerr" class="status-message error hidden" role="alert"></p>
       <div class="field"><div class="label-row"><label class="label" for="ti-msg">Secret message</label><small id="ti-cnt">0 / 0</small></div><textarea id="ti-msg" class="control" rows="4" dir="auto" placeholder="Write what you want to hide, in any language…"></textarea><p class="note">A Latin character uses 1 byte; Arabic and many other scripts use 2 bytes or more.</p></div>
       <div class="field"><label class="label" for="ti-pw1">Password <small>Optional</small></label><div class="pw-wrap"><input type="password" id="ti-pw1" class="control" autocomplete="new-password" placeholder="Leave empty to hide without encryption"><button type="button" class="pw-eye" data-target="ti-pw1" aria-label="Show or hide password">◉</button></div></div>
       <div class="field"><div class="label-row"><span class="label">Image capacity used</span><small id="ti-pct">0%</small></div><div class="meter"><div id="ti-bar"></div></div></div>

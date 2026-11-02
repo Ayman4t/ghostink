@@ -20,6 +20,9 @@ All three support optional AES-256-GCM (PBKDF2-SHA256) protection.
 ## Image in Image — compression-resistant mode: reliability settings
 New files are written with **every bit stored twice (repeat ×2)**, a stronger QIM step (**`RB_K_ENCODE = 2.6`**) and the secret sized to **80 % of the repeat-2 capacity** (`ROBUST_PROFILES.reliable` in `js/image-image.js`). The decoder tries strengths 2.6, 1.8 and 1.0 and keeps trying after an error-correction failure, so files made by older builds still open. Trade-off: the hidden copy is smaller (about 20 KB on a 1536×1024 cover instead of about 50 KB), in exchange for surviving much heavier or repeated JPEG re-compression. If you change `js/robust.js` or `js/image-worker.js`, regenerate `js/worker-source.js` (it embeds both).
 
+## Small-cover protection
+A cover image that is too small is refused at upload time (red alert + toast, the file is not added) instead of failing later. Image in Image: at least 200×200 px (`COVER_MIN_*` in `js/image-image.js`), plus the exact capacity check for resistant mode, re-checked when that switch is toggled. Text in Image: at least 100×100 px and 100 bytes of capacity (`MIN_COVER_*` in `js/text-image.js`); if only resistant mode is too small, PNG is selected automatically.
+
 ## Languages (English / Arabic)
 The header has a language switch. The first visit follows the browser language; the choice is remembered. All Arabic text lives in `js/i18n.js` (generated dictionary + regex rules for dynamic messages) and the page flips to RTL automatically. Smart helpers (password strength, paste-detection of hidden text) are in `js/smart.js`. Theme/RTL styles: `css/theme.css`.
 
