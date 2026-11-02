@@ -27,7 +27,8 @@
   // Headline "decrypt" effect: scrambled glyphs resolve into the real text (once, on load)
   const GLYPHS = '01#$%&*+=<>/\\|~^?!ABCDEFabcdef';
   document.querySelectorAll('[data-decode]').forEach((h) => {
-    if (reduce) return;
+    if (reduce || document.documentElement.lang === 'ar') return;
+    const pristine = [...h.childNodes].map((c) => c.cloneNode(true));
     if (!h.hasAttribute('aria-label')) h.setAttribute('aria-label', h.textContent.replace(/\s+/g, ' ').trim());
     const walker = document.createTreeWalker(h, NodeFilter.SHOW_TEXT);
     const nodes = []; let n; while ((n = walker.nextNode())) if (n.nodeValue.trim()) nodes.push(n);
@@ -50,7 +51,7 @@
         else { left++; it.sp.textContent = GLYPHS[(Math.random() * GLYPHS.length) | 0]; it.sp.classList.add('dc-x'); }
       });
       if (left) requestAnimationFrame(tick);
-      else { items.forEach((it) => { it.sp.removeAttribute('aria-hidden'); }); }
+      else { h.replaceChildren(...pristine); h.removeAttribute('aria-label'); }
     })(start);
   });
 })();

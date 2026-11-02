@@ -521,7 +521,7 @@
         $("tt-decode-actions").hidden = false;
       } else {
         out.className = "result bad";
-        text.textContent = explainFailure(r);
+        text.textContent = GI.t(explainFailure(r));
         setBadge($("tt-decode-badge"), "bad", r.reason === "needpass" ? "Password protected 🔒" : "Not revealed ✕");
         if (r.reason === "needpass" || r.reason === "wrongpass") $("tt-diag").hidden = true;
         else renderDiag(r);
@@ -555,7 +555,7 @@
       $("tt-decode-actions").hidden = true;
       setBadge($("tt-decode-badge"), "", "");
       $("tt-decoded-output").className = "result scanning";
-      $("tt-decoded-text").textContent = "Inspecting…";
+      $("tt-decoded-text").textContent = GI.t("Inspecting…");
       $("tt-decode-result-box").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest" });
 
       decodeTimer = setTimeout(async () => {

@@ -17,6 +17,9 @@ Free steganography studio: three tools in one static, browser-only site (no buil
 
 All three support optional AES-256-GCM (PBKDF2-SHA256) protection.
 
+## Languages (English / Arabic)
+The header has a language switch. The first visit follows the browser language; the choice is remembered. All Arabic text lives in `js/i18n.js` (generated dictionary + regex rules for dynamic messages) and the page flips to RTL automatically. Smart helpers (password strength, paste-detection of hidden text) are in `js/smart.js`. Theme/RTL styles: `css/theme.css`.
+
 ## Before you publish: 2 things to fill in
 
 1. **Your domain (SEO).** Canonical URLs, Open Graph, JSON-LD, `sitemap.xml` and `robots.txt` use the placeholder `https://YOUR-DOMAIN.com`. Replace it everywhere:

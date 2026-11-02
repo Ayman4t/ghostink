@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' blob: data:; connect-src 'none'; worker-src 'self' blob:; base-uri 'none'; form-action 'none'; object-src 'none'; frame-src 'none'; manifest-src 'none'; media-src 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#100b24">
+<meta name="theme-color" content="#070b14">
 <meta name="description" content="Free online steganography studio: hide secret text inside text, text inside an image, or one image inside another, with optional AES-256 encryption. Runs 100% in your browser.">
 <title>GhostInk Studio — Hide Text &amp; Images Inside Images (Free, Private)</title>
 <link rel="canonical" href="https://YOUR-DOMAIN.com/studio">
@@ -30,9 +30,11 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"GhostInk Studio","url":"https://YOUR-DOMAIN.com/studio","applicationCategory":"SecurityApplication","operatingSystem":"Any (modern web browser)","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free browser-based steganography tools: hide text in text, text in an image, or an image in an image, with optional AES-256-GCM encryption.","isPartOf":{"@type":"WebSite","name":"GhostInk","url":"https://YOUR-DOMAIN.com/"},"author":{"@type":"Organization","name":"AymanStack"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/theme.css">
+<script src="js/i18n.js"></script>
 </head>
 <body>
 <div class="app-shell">
@@ -234,5 +236,6 @@
 <script src="js/text-image.js"></script>
 <script src="js/worker-source.js"></script>
 <script src="js/image-image.js"></script>
+<script src="js/smart.js"></script>
 </body>
 </html>

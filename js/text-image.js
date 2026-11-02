@@ -174,7 +174,7 @@ dropzone($('ti-dz2'), $('ti-f2'), async f => {
     $('ti-th2').src = url; $('ti-fn2').textContent = f.name; $('ti-dz2e').classList.add('hidden'); $('ti-dz2p').classList.remove('hidden'); $('ti-dz2p').classList.add('flex'); $('ti-go2').disabled = false;
   } catch (e) { toast(imgErr(e), 'err'); }
 });
-function note(cls, text) { const t = $('ti-term'), s = document.createElement('span'); s.className = cls; s.textContent = text; t.textContent = ''; t.append(s); }
+function note(cls, text) { const t = $('ti-term'), s = document.createElement('span'); s.className = cls; s.textContent = GI.t(text); t.textContent = ''; t.append(s); }
 function show(text) {
   const t = $('ti-term'); clearTimeout(typing); t.classList.remove('scan'); t.textContent = ''; t.classList.add('caret');
   let i = 0; const chars = [...text], step = Math.max(1, Math.ceil(chars.length / 120));
