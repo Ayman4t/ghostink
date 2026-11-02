@@ -24,29 +24,31 @@
     const url = action.replace('formsubmit.co/', 'formsubmit.co/ajax/');
 
     btn.disabled = true; const old = btn.textContent; btn.textContent = 'Sending…';
-    try {
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          name, email, message,
-          topic: form.elements.topic.value,
-          _subject: 'GhostInk — ' + form.elements.topic.value + ' from ' + name,
-          _replyto: email, _captcha: 'false', _template: 'table', _honey: ''
-        })
+    const payload = JSON.stringify({
+      name, email, message,
+      topic: form.elements.topic.value,
+      _subject: 'GhostInk — ' + form.elements.topic.value + ' from ' + name,
+      _replyto: email, _captcha: 'false', _template: 'table', _honey: ''
+    });
+    const done = () => { form.reset(); say('Thank you! Your message was sent. We will reply by email.', 'ok'); btn.disabled = false; btn.textContent = old; };
+    const fallback = () => { say('Sending…', 'ok'); form.submit(); };   // normal FormSubmit POST (handles activation page)
+    // FormSubmit can take many seconds to answer while it sends the email. Start the request (keepalive so it
+    // survives navigation), and if it has not failed after 1.5 s, confirm to the visitor right away.
+    let settled = false;
+    const request = fetch(url, { method: 'POST', keepalive: true,
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: payload })
+      .then(async (res) => {
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || String(data.success) === 'false') throw new Error(data.message || 'Request failed');
       });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || String(data.success) === 'false') throw new Error(data.message || 'Request failed');
-      form.reset();
-      say('Thank you! Your message was sent. We will reply by email.', 'ok');
+    const early = new Promise((r) => setTimeout(() => r('early'), 1500));
+    try {
+      const first = await Promise.race([request.then(() => 'ok'), early]);
+      settled = true;
+      done();
+      if (first === 'early') request.catch(() => { say('Sorry, the message could not be sent. Please try again in a moment.', 'err'); });
     } catch (err) {
-      // AJAX can fail before the inbox is activated (or if the browser blocks it): fall back to a normal
-      // FormSubmit POST, which also shows FormSubmit's own activation / thank-you page.
-      say('Sending…', 'ok');
-      form.submit();
-      return;
-    } finally {
-      btn.disabled = false; btn.textContent = old;
+      if (!settled) { btn.disabled = false; btn.textContent = old; fallback(); }
     }
   });
 })();
